@@ -1,0 +1,82 @@
+Remember what a tab looks like before it loses focus,
+Compare that to what it looks like when it regains focus
+
+Any changes that happened in the background will be detected,
+and communicated to the user by means of a colored overlay
+
+Allow user to decide for himself whether changes are innocent or malicious
+
+
+/**
+ * Extension Name: TABoo by the SHAmans
+ */
+
+/**
+ * Capturing Tabs:
+ * 
+ * record the favicon and capture screenshots of currently focused tab at regular intervals,
+ * keeping track of latest version
+ * 
+ * latest snapshot will be the basis for comparison when a tab regains focus
+ * 
+ * Capturing a screenshot of a tab in chrome is trivial since
+ * browser offers an API call to capture the currently visible tab of a window
+ */
+
+ /**
+  * Comparing Tab Snapshots:
+  * 
+  * when a tab regains focus, compare current snapshot data with the stored data 
+  * and detect any differences
+  * 
+  * Favicons are compared by source and screenshots are compared visually
+  * 
+  * each screenshot can be divided into raster of fixed-size tiles (10x10 pixels)
+  * Compare each counterpart in the stored snapshot data
+  * 
+  * If they do not match exactly, the area vcovered by it is marked as changed.
+  * 
+  * Rastering/comparison algorithms implemented using HTML5 canvas element
+  */
+
+/**
+ * Highlighting Differences:
+ * 
+ * Once differences for a focused tab are calculated, inject an overlay into the page
+ * 
+ * Overlay is completely transparent, except for differences (semi-transparent color)
+ * 
+ * Overlay positioned in the top left corenr and covers the entire visible part of the site
+ * Set CSS directive (pointer-events:none) so there's no unwanted interactions, and allow mouse and keyboard 
+ * events to fall through to the original content
+ * 
+ * A malicious page may try to remove the overlay from the DOM,
+ * implement a mutation event listener that is triggered when 
+ * element is removed, then check whether overlay is still present and if not,
+ * immediately warn the user of this active malicious behavior
+ */
+
+ /**
+  * Security Indicator:
+  * Have a broswer toolbar icon, that indicates current status of the site 
+  * 
+  * Maybe change color to indicate how much of site has changed
+  * <10% green, <40% yellow, else red
+  */
+
+  /**
+   * Maybe try to have it so that an event is triggered when a user leaves a tab,
+   * in the paper, chrome only triggers an event when a user focuses a new tab
+   */
+
+   /**
+    * Blacklist tabs
+    * User can mark the current page as an attack through UI of the extension,
+    * 
+    * trasnfer to a server-side the following information:
+    * URL of current page
+    * image of page vefore the user switched tabs
+    * image of the page after the user switched tabs
+    * 
+    * there are other cases too since attacker may blacklist a lot of legitimate sites
+    */
