@@ -6,11 +6,6 @@ and communicated to the user by means of a colored overlay
 
 Allow user to decide for himself whether changes are innocent or malicious
 
-
-/**
- * Extension Name: TABoo by the SHAmans
- */
-
 /**
  * Capturing Tabs:
  * 

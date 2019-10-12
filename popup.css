@@ -10,6 +10,10 @@ body{
     /* border: 0.5px solid #dadada; */
 }
 
+.fa{
+    color: #dadada;
+}
+
 .extension-title{
     padding-top: 15px;
     padding-bottom: 15px;
