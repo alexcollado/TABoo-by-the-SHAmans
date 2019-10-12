@@ -1,18 +1,65 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
-    <style>
-        button {
-            height: 30px;
-            width: 30px;
-            outline: none;
-        }
-    </style>
+    <title>TABoo by the SHAmans</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://fonts.googleapis.com/css?family=Amarante&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300&display=swap" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
+        integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous" />
+
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
+        integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+
+
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href="popup.css" rel="stylesheet" type="text/css" />
 </head>
 
 <body>
-    <button id="changeColor"></button>
+    <div class="container">
+        <div class="extension-title">
+            <div class="row justify-content-center mx-auto">
+                <div class="col">
+                    <h1 class="text-center">TABoo by the SHAmans</h1>
+                </div>
+            </div>
+        </div>
+        <div class="content">
+            <div class="row justify-content-center mx-auto">
+                <div class="col-xs-9 pr-2">
+                    <p class="mx-auto font-weight-light">Protect from Tabnabbing on </p>
+                </div>
+                <div class="col-xs-3 pl-2">
+                    <div class="onoffswitch mx-auto">
+                        <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch"
+                            checked>
+                        <label class="onoffswitch-label" for="myonoffswitch"></label>
+                    </div>
+                </div>
+            </div>
+            <div class="row justify-content-center mx-auto">
+                <div class="col-xs-4 mx-auto">
+                    <i class="fa fa-fire fa-2x"></i>
+                </div>
+                <div class="col-xs-8 mx-auto">
+                    <button type="button" class="btn btn-outline-danger" id="changeColor">Report Site</button>
+                </div>
+            </div>
+        </div>
+        <div class="end">
+            <div class="row justify-content-center mx-auto">
+                <div class="col mx-auto">
+                    <p class="font-weight-light">The fire indicates how trustworthy the site is.</p>
+                </div>
+            </div>
+        </div>
+    </div>
     <script src="popup.js"></script>
 </body>
 
