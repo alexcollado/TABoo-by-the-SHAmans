@@ -3,13 +3,18 @@
     "version": "1.0",
     "description": "Protect yourself from Tabnabbing attacks with the help of the SHAmans",
     "permissions": [
-        "activeTab",
         "storage",
         "tabs",
-        "<all_urls>"
+        "http://*/*",
+        "https://*/*",
+        "*://*/*",
+        "<all_urls>",
+        "activeTab"
     ],
+    "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
     "background": {
         "scripts": [
+            "node_modules/resemblejs/resemble.js",
             "background.js"
         ],
         "persistent": false

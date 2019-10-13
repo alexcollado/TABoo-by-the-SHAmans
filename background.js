@@ -46,9 +46,20 @@ function screenshotTab(tabId){
         if(data.protection){
             chrome.tabs.captureVisibleTab(function(dataURL){
                 console.log(dataURL);
+                var oldURL = screenshotMap.get(tabId);
+                if(oldURL != undefined){
+                    compareDataURLs(oldURL, dataURL);
+                }
                 screenshotMap.set(tabId, dataURL);
                 console.log(screenshotMap.keys());
             });
         }
+    });
+}
+
+function compareDataURLs(oldURL, newURL){
+    console.log("already contains a screenshot");
+    var diff = resemble(oldURL).compareTo(newURL).onComplete(function(data){
+        console.log(data);
     });
 }
