@@ -1,5 +1,6 @@
-let changeColor = document.getElementById('changeColor');
 let protectionSwitch = document.getElementById('protectionSwitch');
+let changeColor = document.getElementById('changeColor');
+let indicator = document.getElementById('fire');
 
 protectionSwitch.addEventListener('change', (event) => {
     if(event.target.checked){
@@ -14,10 +15,8 @@ chrome.storage.sync.get('protection', function (data){
 });
 
 changeColor.onclick = function (element) {
-    let color = "red";
-    chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
-        chrome.tabs.executeScript(
-            tabs[0].id,
-            { code: 'document.body.style.backgroundColor = "' + color + '";' });
+    chrome.storage.sync.get('color', function(data){
+        indicator.style.color = data.color;
+        alert(data.color);
     });
 };
