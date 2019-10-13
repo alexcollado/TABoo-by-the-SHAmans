@@ -3,25 +3,9 @@ let protectionSwitch = document.getElementById('protectionSwitch');
 
 protectionSwitch.addEventListener('change', (event) => {
     if(event.target.checked){
-        chrome.storage.sync.set({ protection: true}, function() {
-            console.log("Protected");
-        });
-        chrome.storage.sync.get('tabs', function (data){
-            // if(data.tabs == null){
-                // chrome.storage.sync.set({})
-            // }
-        });
+        chrome.storage.sync.set({ protection: true}, null);
     }else{
-        chrome.storage.sync.set({ protection: false}, function() {
-            console.log("Not protected");
-        });
-        chrome.storage.sync.get('tabs', function (data){
-            if(data.tabs == null){
-                console.log("Tabs is null");
-            }else{
-                console.log("Removing the tabs saved in tabs array");
-            }
-        });
+        chrome.storage.sync.set({ protection: false}, null);
     }
 });
 
