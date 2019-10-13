@@ -1,7 +1,7 @@
 let screenshotMap = new Map();
 
 chrome.runtime.onInstalled.addListener(function () {
-    chrome.storage.sync.set({ protection: false, color: "#dadada"}, function() {
+    chrome.storage.sync.set({ protection: false, color: "#dadada" }, function() {
         console.log("Thank you for installing this extension.")
     });
 });
@@ -49,6 +49,8 @@ function screenshotTab(tabId){
                 var oldURL = screenshotMap.get(tabId);
                 if(oldURL != undefined){
                     compareDataURLs(oldURL, dataURL);
+                }else{
+                    chrome.storage.sync.set({color: "#dadada"}, null);
                 }
                 screenshotMap.set(tabId, dataURL);
                 console.log(screenshotMap.keys());
@@ -62,7 +64,7 @@ function compareDataURLs(oldURL, newURL){
     var diff = resemble(oldURL).compareTo(newURL).onComplete(function(data){
         console.log(data);
         console.log(data.getImageDataUrl());
-        var temp = "#dadada";
+        var temp;
         if(data.misMatchPercentage < 10){
             temp = "#2ecc71";
         }else if(data.misMatchPercentage < 40){
@@ -70,10 +72,7 @@ function compareDataURLs(oldURL, newURL){
         }else{
             temp = "#e74c3c";
         }
-        chrome.storage.sync.set({ color: temp}, function(){
-            console.log("updated color");
-        });
-        // indicator.setAttribute('color', color);
+        chrome.storage.sync.set({color: temp}, null);
         // now parse image in 10x10 pixels and map it onto an overlay?
     });
 }
