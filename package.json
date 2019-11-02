@@ -1,0 +1,23 @@
+{
+  "name": "taboo-by-the-shamans",
+  "version": "1.0.0",
+  "description": "",
+  "main": "background.js",
+  "dependencies": {
+    "resemblejs": "^3.2.3"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alexcollado/TABoo-by-the-SHAmans.git"
+  },
+  "author": "SHAmans",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/alexcollado/TABoo-by-the-SHAmans/issues"
+  },
+  "homepage": "https://github.com/alexcollado/TABoo-by-the-SHAmans#readme"
+}
