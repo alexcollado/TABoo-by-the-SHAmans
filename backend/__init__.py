@@ -1,13 +1,20 @@
 from flask import Flask
+from flask_sqlalchemy import SQLAlchemy
 
-from backend.models import db
-
-app = Flask(__name__)
+db = SQLAlchemy()
 
 
-from backend import routes
+def create_app():
+    """Construct the core application."""
+    app = Flask(__name__, instance_relative_config=False)
+    db.init_app(app)
+    app.config.from_object('config.Config')
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://your-username:your-password@localhost/development'
+    with app.app_context():
+        # Imports
+        from . import routes
 
-from backend import models
-db.init_app(app)
+        # Create tables for our models
+        db.create_all()
+
+        return app

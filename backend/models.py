@@ -1,11 +1,20 @@
-from datetime import datetime
+from . import db
 
-from flask_sqlalchemy import SQLAlchemy
 
-db = SQLAlchemy()
+class Site(db.Model):
+    """Model for user accounts."""
 
-class Sites(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    url = db.Column(db.String(100))
-    date = db.Column(db.DateTime,
-                     default=datetime.utcnow)
+    __tablename__ = 'sites'
+    id = db.Column(db.Integer,
+                   primary_key=True)
+    url = db.Column(db.String(64),
+                         index=False,
+                         unique=True,
+                         nullable=False)
+    created = db.Column(db.DateTime,
+                        index=False,
+                        unique=False,
+                        nullable=False)
+
+    def __repr__(self):
+        return '<Sire {}>'.format(self.url)
