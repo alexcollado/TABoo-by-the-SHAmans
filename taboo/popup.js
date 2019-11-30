@@ -16,3 +16,14 @@ chrome.storage.sync.get('protection', function (data){
 chrome.storage.sync.get('color', function (data){
     indicator.style.color = data.color;
 })
+
+window.onload = function() {
+    document.getElementById("changeColor").onclick = function fun() {
+        fetch(`http://127.0.0.1:5000/fetchURL?url=youtube.com`, {
+            method: 'GET',
+        })
+        .then(response => {
+            console.log(response)
+        })
+    }
+}

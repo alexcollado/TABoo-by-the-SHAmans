@@ -1,8 +1,8 @@
-from flask import request, render_template, make_response
+from flask import request, render_template, make_response, Flask
 from datetime import datetime as dt
 from flask import current_app as app
 from .models import db, Site
-
+  
 
 @app.route('/addURL', methods=['GET'])
 def create_site():
