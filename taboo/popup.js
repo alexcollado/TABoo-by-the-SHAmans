@@ -19,11 +19,20 @@ chrome.storage.sync.get('color', function (data){
 
 window.onload = function() {
     document.getElementById("changeColor").onclick = function fun() {
-        fetch(`http://127.0.0.1:5000/fetchURL?url=youtube.com`, {
+        chrome.tabs.query({currentWindow: true, active: true}, function(tabs){
+            console.log(tabs[0].url);
+            let matches = tabs[0].url.match(/^https?\:\/\/([^\/?#]+)(?:[\/?#]|$)/i);
+            let domain = matches && matches[1];
+            console.log(domain)
+            fetch(`http://taboo-dev.us-east-1.elasticbeanstalk.com/addURL?url=${domain}`, {
             method: 'GET',
-        })
-        .then(response => {
-            console.log(response)
-        })
+            })
+            .then(response => {
+                return response.text();
+            })
+            .then(data => {
+                alert(data)
+            })
+        });
     }
 }

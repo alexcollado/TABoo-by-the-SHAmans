@@ -7,6 +7,21 @@ chrome.runtime.onInstalled.addListener(function () {
 });
 
 chrome.tabs.onActivated.addListener(function (activeInfo) {
+    chrome.tabs.query({currentWindow: true, active: true}, function(tabs){
+        console.log(tabs[0].url);
+        let matches = tabs[0].url.match(/^https?\:\/\/([^\/?#]+)(?:[\/?#]|$)/i);
+        let domain = matches && matches[1];
+        console.log(domain)
+        fetch(`http://taboo-dev.us-east-1.elasticbeanstalk.com/fetchURL?url=${domain}`, {
+        method: 'GET',
+        })
+        .then(response => {
+            return response.text()
+        })
+        .then(data => {
+            alert(data)
+        })
+    });
     screenshotTab(activeInfo.tabId);
     // take a screenshot and every maybe 10s take a screenshot? (if protected)
 });
