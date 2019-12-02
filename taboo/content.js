@@ -14,15 +14,16 @@ overlay.style.pointerEvents = "none";
 overlay.style.opacity = "0.2";
 overlay.style.margin = "0";
 overlay.style.padding = "0";
-overlay.style.width = (config.imgWidth + "px");
-overlay.style.height = (config.imgHeight + "px");
-
+overlay.width = config.imgWidth;
+overlay.height = config.imgHeight; 
 var context = overlay.getContext('2d');
+
+//its something with overlay width and height i think -- default is used for some reason
 
 var i = 0;
 
-for (var j = 0; j < config.imgWidth; j+=10) {
-    for (var k = 0; k < config.imgHeight; k+=10) {
+for (var j = 0; j < config.imgHeight; j+=10) {
+    for (var k = 0; k < config.imgWidth; k+=10) {
         var bg;
         if(config.diffArr[i] == 0){
             bg = "#000000";
@@ -33,7 +34,7 @@ for (var j = 0; j < config.imgWidth; j+=10) {
         console.log(config.diffArr[i]);
 
         context.fillStyle = bg;
-        context.fillRect(j, k, 10, 10);
+        context.fillRect(k, j, 10, 10);
 
         i++;
     }

@@ -63,12 +63,12 @@ function compareDataURLs(oldURL, newURL, tabId) {
 
     oldImage.src = oldURL;
     oldImage.onload = function () {
-        console.log("loading old image...")
-        for (var j = 0; j < oldImage.width; j += 10) {
-            for (var k = 0; k < oldImage.height; k += 10) {
+        console.log("loading old image...");
+        for (var j = 0; j < oldImage.height; j += 10) {
+            for (var k = 0; k < oldImage.width; k += 10) {
                 var temp = document.createElement('canvas');
                 var context = temp.getContext('2d');
-                context.drawImage(oldImage, j, k, 10, 10, 0, 0, 10, 10);
+                context.drawImage(oldImage, k, j, 10, 10, 0, 0, 10, 10);
                 oldPieces.push(temp.toDataURL());
             }
         }
@@ -81,11 +81,11 @@ function compareDataURLs(oldURL, newURL, tabId) {
     newImage.src = newURL;
     newImage.onload = function (){
         console.log("loading new image...")
-        for (var j = 0; j < newImage.width; j += 10) {
-            for (var k = 0; k < newImage.height; k += 10) {
+        for (var j = 0; j < newImage.height; j += 10) {
+            for (var k = 0; k < newImage.width; k += 10) {
                 var temp = document.createElement('canvas');
                 var context = temp.getContext('2d');
-                context.drawImage(newImage, j, k, 10, 10, 0, 0, 10, 10);
+                context.drawImage(newImage, k, j, 10, 10, 0, 0, 10, 10);
                 newPieces.push(temp.toDataURL());
             }
         }
@@ -95,33 +95,45 @@ function compareDataURLs(oldURL, newURL, tabId) {
         finishLoading();
     };
 
-    function yeet() {
+    // test to see if right boxes are highlighted
+    function yeet(){
         var diff_arr = [];
-        resemble.outputSettings({ useCrossOrigin: false });
-        for(var i = 0; i < 10; i++){
-            var diff = resemble(oldPieces[i]).compareTo(newPieces[i]).onComplete(function (data) {
+        // check to see which indices are changed to one, when a segment of the html is edited (is it being changed so that its incrementing by width or height)?
+        // test with html first  (row or column changed)
 
-                console.log(data.misMatchPercentage);
+        // test header -- change header to different color --> what indices are changed?
+        // then check if thats similar to what is being drawn
 
-                if(data.misMatchPercentage > 0.1){
-                    diff_arr.push(1);
-                }else{
-                    diff_arr.push(0);
-                }
+        // pink squares are drawn by row first st. index 1 is row 1, column 0
 
-                if (diff_arr.length >= 10){
-                    console.log(diff_arr);
-                    // sendData(diff_arr);
-                }
+        alert("Processing...")
+        // for (var i = 0; (i < oldPieces.length) && (i < newPieces.length); i++) {
+        //     var diff = resemble(oldPieces[i]).compareTo(newPieces[i]).onComplete(function (data) {
 
-            });
-        };
+        //         if(data.misMatchPercentage > 0.1){
+        //             diff_arr.push(1);
+        //         } else {
+        //             diff_arr.push(0);
+        //         }
+        //         console.log("Processing...", ((diff_arr.length / oldPieces.length) * 100).toFixed(2), '%'); // print progress as a percentage (2 decimal places)
+
+        //         if (diff_arr.length >= oldPieces.length) {
+        //             console.log(diff_arr);
+        //             sendData(diff_arr);
+        //         }
+        //     });
+        // }
+        for(var i = 0; i < oldPieces.length; i++){
+            diff_arr.push(0);
+        }
+        diff_arr[1] = 1;
+        sendData(diff_arr);
     }
 
     function finishLoading() {
         // go through all of the peices and do the resemble thing, id datamismatch greater than 50, matrix will have a 1, otherwise a 0
         var diff_arr = [];
-
+        alert("Processing...")
         for (var i = 0; (i < oldPieces.length) && (i < newPieces.length); i++) {
             var diff = resemble(oldPieces[i]).compareTo(newPieces[i]).onComplete(function (data) {
 
@@ -130,7 +142,7 @@ function compareDataURLs(oldURL, newURL, tabId) {
                 } else {
                     diff_arr.push(0);
                 }
-                console.log("Processing...", (diff_arr.length / oldPieces.length) * 100, '%');
+                console.log("Processing...", ((diff_arr.length / oldPieces.length) * 100).toFixed(2), '%'); // print progress as a percentage (2 decimal places)
 
                 if (diff_arr.length >= oldPieces.length) {
                     console.log(diff_arr);
@@ -152,13 +164,14 @@ function compareDataURLs(oldURL, newURL, tabId) {
             } else {
                 temp_color = "#e74c3c";
             }
+            alert('whole data mismatch: ' + data.misMatchPercentage);
 
             chrome.storage.sync.set({ color: temp_color }, null);
 
             var diffImage = new Image();
             diffImage.src = data.getImageDataUrl();
             diffImage.onload = function () {
-                var config = { diffArr: diff_arr, imgWidth: diffImage.width, imgHeight: diffImage.height };
+                var config = { diffArr: diff_arr, imgWidth: oldImage.width, imgHeight: oldImage.height };
 
                 chrome.tabs.executeScript(tabId, { code: 'var config = ' + JSON.stringify(config) }, function () {
                     console.log("Sending to tab...")
