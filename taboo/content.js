@@ -14,6 +14,7 @@ overlay.style.pointerEvents = "none";
 overlay.style.opacity = "0.2";
 overlay.style.margin = "0";
 overlay.style.padding = "0";
+overlay.style.zIndex = "100";
 overlay.width = config.imgWidth;
 overlay.height = config.imgHeight; 
 var context = overlay.getContext('2d');
@@ -22,8 +23,8 @@ var context = overlay.getContext('2d');
 
 var i = 0;
 
-for (var j = 0; j < config.imgHeight; j+=10) {
-    for (var k = 0; k < config.imgWidth; k+=10) {
+for (var j = 0; j < config.imgHeight; j+=50) {
+    for (var k = 0; k < config.imgWidth; k+=50) {
         var bg;
         if(config.diffArr[i] == 0){
             bg = "#000000";
@@ -34,7 +35,7 @@ for (var j = 0; j < config.imgHeight; j+=10) {
         console.log(config.diffArr[i]);
 
         context.fillStyle = bg;
-        context.fillRect(k, j, 10, 10);
+        context.fillRect(k, j, 50, 50);
 
         i++;
     }

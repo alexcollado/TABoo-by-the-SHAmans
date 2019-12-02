@@ -64,11 +64,11 @@ function compareDataURLs(oldURL, newURL, tabId) {
     oldImage.src = oldURL;
     oldImage.onload = function () {
         console.log("loading old image...");
-        for (var j = 0; j < oldImage.height; j += 10) {
-            for (var k = 0; k < oldImage.width; k += 10) {
+        for (var j = 0; j < oldImage.height; j += 50) {
+            for (var k = 0; k < oldImage.width; k += 50) {
                 var temp = document.createElement('canvas');
                 var context = temp.getContext('2d');
-                context.drawImage(oldImage, k, j, 10, 10, 0, 0, 10, 10);
+                context.drawImage(oldImage, k, j, 50, 50, 0, 0, 50, 50);
                 oldPieces.push(temp.toDataURL());
             }
         }
@@ -81,54 +81,18 @@ function compareDataURLs(oldURL, newURL, tabId) {
     newImage.src = newURL;
     newImage.onload = function (){
         console.log("loading new image...")
-        for (var j = 0; j < newImage.height; j += 10) {
-            for (var k = 0; k < newImage.width; k += 10) {
+        for (var j = 0; j < newImage.height; j += 50) {
+            for (var k = 0; k < newImage.width; k += 50) {
                 var temp = document.createElement('canvas');
                 var context = temp.getContext('2d');
-                context.drawImage(newImage, k, j, 10, 10, 0, 0, 10, 10);
+                context.drawImage(newImage, k, j, 50, 50, 0, 0, 50, 50);
                 newPieces.push(temp.toDataURL());
             }
         }
         console.log("completed loading new image");
 
-        // yeet();
         finishLoading();
     };
-
-    // test to see if right boxes are highlighted
-    function yeet(){
-        var diff_arr = [];
-        // check to see which indices are changed to one, when a segment of the html is edited (is it being changed so that its incrementing by width or height)?
-        // test with html first  (row or column changed)
-
-        // test header -- change header to different color --> what indices are changed?
-        // then check if thats similar to what is being drawn
-
-        // pink squares are drawn by row first st. index 1 is row 1, column 0
-
-        alert("Processing...")
-        // for (var i = 0; (i < oldPieces.length) && (i < newPieces.length); i++) {
-        //     var diff = resemble(oldPieces[i]).compareTo(newPieces[i]).onComplete(function (data) {
-
-        //         if(data.misMatchPercentage > 0.1){
-        //             diff_arr.push(1);
-        //         } else {
-        //             diff_arr.push(0);
-        //         }
-        //         console.log("Processing...", ((diff_arr.length / oldPieces.length) * 100).toFixed(2), '%'); // print progress as a percentage (2 decimal places)
-
-        //         if (diff_arr.length >= oldPieces.length) {
-        //             console.log(diff_arr);
-        //             sendData(diff_arr);
-        //         }
-        //     });
-        // }
-        for(var i = 0; i < oldPieces.length; i++){
-            diff_arr.push(0);
-        }
-        diff_arr[1] = 1;
-        sendData(diff_arr);
-    }
 
     function finishLoading() {
         // go through all of the peices and do the resemble thing, id datamismatch greater than 50, matrix will have a 1, otherwise a 0
