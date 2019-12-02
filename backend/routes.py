@@ -28,3 +28,7 @@ def fetch_site():
             return make_response('This site is blacklisted!')
     return make_response("The site is safe and not blacklisted!")
 
+@app.route('/', methods=['GET'])
+def home():
+    """Testing the API."""
+    return make_response("Hello World")
